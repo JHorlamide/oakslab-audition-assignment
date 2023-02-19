@@ -9,8 +9,8 @@ To run this application, you will need:
 
 To install this application, follow these steps:
 
-* Clone this repository to your machine: `git clone https://github.com/JHorlamide/Oakslab-assessment.git`
-* Navigate to the project directory: `cd Oakslab-assessment`
+* Clone this repository to your machine: `git clone https://github.com/JHorlamide/oakslab-audition-assignment.git`
+* Navigate to the project directory: `cd oakslab-audition-assignment`
 
 ## Running the Application
 
