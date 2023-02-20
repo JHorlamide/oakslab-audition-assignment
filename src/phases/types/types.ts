@@ -29,3 +29,14 @@ export interface IPhaseDB {
   tasks: Array<ITask>;
   done: boolean;
 }
+
+export interface CompleteTask {
+  phaseId: string,
+  taskIndex: number,
+  completed: boolean
+}
+
+export interface IGetTask {
+  phaseId: string,
+  taskId: string
+}
