@@ -1,7 +1,6 @@
 import { Response } from "express";
 import HttpStatus from "http-status";
 
-
 /**
  * A class for handling HTTP responses with generic data type T.
  * Provides methods for successful, failure, and error responses.

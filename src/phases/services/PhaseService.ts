@@ -31,7 +31,7 @@ class PhaseService {
     return this.phaseDB[phaseId] = newPhase;
   }
 
-  public createNewTask(taskBodyField: ICreateTask) {
+  public createNewTask(taskBodyField: ICreateTask): IPhaseDB {
     const { name, description, phaseId } = taskBodyField;
     const taskId = randomBytes(4).toString("hex");
 
@@ -39,7 +39,7 @@ class PhaseService {
       throw new Error("name, description, and phaseId are required fields");
     }
 
-    //find the phase to create task for.
+    // find the phase to create task for.
     const phase = this.phaseDB[phaseId];
     if (!phase) {
       throw new Error("Phase note found");
@@ -74,6 +74,7 @@ class PhaseService {
     //check if every task of a phase is completed
     if (this.phaseDB[phaseId].tasks.every(task => task.completed)) {
       this.phaseDB[phaseId].done = true;
+      
       const nextPhaseId = this.getNextPhaseId(phaseId);
       if (nextPhaseId) {
         this.phaseDB[nextPhaseId].done = false;
