@@ -3,17 +3,6 @@ import supertest, { SuperAgentTest } from "supertest";
 
 import main from "../../../server";
 
-let phaseId = "";
-let firstPhaseBody = {
-  name: "test phase",
-  description: "test description"
-}
-
-let errorPhaseBody = {
-  name: "",
-  description: ""
-}
-
 describe("createNewPhase", () => {
   let server: http.Server;
   let request: SuperAgentTest;
@@ -29,6 +18,12 @@ describe("createNewPhase", () => {
   });
 
   it("it should create a new phase", async () => {
+    let phaseId = "";
+    let firstPhaseBody = {
+      name: "test phase",
+      description: "test description"
+    }
+
     const res = await request.post("/api/phases").send(firstPhaseBody);
 
     expect(res.status).toEqual(201);
@@ -39,6 +34,11 @@ describe("createNewPhase", () => {
   })
 
   it("it should return an error if name and description are not provided", async () => {
+    let errorPhaseBody = {
+      name: "",
+      description: ""
+    }
+
     const res = await request.post("/api/phases").send(errorPhaseBody);
 
     expect(res.status).toEqual(400);
