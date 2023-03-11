@@ -35,14 +35,25 @@ class RepositoryService {
 
   public getPreviousPhaseId(phaseId: string): string | null {
     const phaseIds = Object.keys(this.phaseDB);
-    const index = phaseIds.findIndex(id => id === phaseId);
-    return index > 0 ? phaseIds[index - 1] : null;
+    const index = phaseIds.indexOf(phaseId);
+    if (index === -1) {
+      return null;
+    }
+
+    const previousPhaseId = phaseIds.slice(0, index).reverse().find(id => !!this.phaseDB[id]);
+    return previousPhaseId || null;
   }
 
   public getNextPhaseId(phaseId: string): string | null {
     const phaseIds = Object.keys(this.phaseDB);
-    const index = phaseIds.findIndex(id => id === phaseId);
-    return index < phaseIds.length - 1 ? phaseIds[index + 1] : null;
+    const index = phaseIds.indexOf(phaseId);
+
+    if (index === -1) {
+      return null;
+    }
+
+    const nextPhaseId = phaseIds.slice(index + 1).find(id => !!this.phaseDB[id]);
+    return nextPhaseId || null;
   }
 }
 
