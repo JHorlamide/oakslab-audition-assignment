@@ -9,6 +9,7 @@ class PhaseService {
 
   public createNewPhase(phaseBodyField: IPhase): IPhaseDB {
     const { name, description } = phaseBodyField;
+    const phaseId = randomBytes(4).toString("hex");
 
     if (!name || !description) {
       throw new Error("name and description are required fields");
@@ -19,7 +20,8 @@ class PhaseService {
       throw new Error(`Phase with name '${name}' already exists`);
     }
 
-    const newPhase = repositoryService.createPhase({ name, description });
+    const phase = { phaseId, name, description, tasks: [], done: false }
+    const newPhase = repositoryService.createPhase(phase);
     return newPhase;
   }
 
@@ -27,7 +29,7 @@ class PhaseService {
     const { name, description, phaseId } = taskBodyField;
     const taskId = randomBytes(4).toString("hex");
 
-    if (!name ||!description || !phaseId) {
+    if (!name || !description || !phaseId) {
       throw new Error("name, description, and phaseId are required fields");
     }
 
@@ -51,7 +53,7 @@ class PhaseService {
     }
 
     // check task exist with the given taskId
-    const taskIndex = repositoryService.getTaskIndex({phaseId, taskId });
+    const taskIndex = repositoryService.getTaskIndex({ phaseId, taskId });
     if (taskIndex < 0) {
       throw new Error("Task not found");
     }
@@ -62,7 +64,7 @@ class PhaseService {
     // If there is a previous phase, check if it's completed
     if (previousPhaseId) {
       const previousPhase = repositoryService.getPhaseByPhaseId(previousPhaseId);
-      
+
       // If the previous phase is not completed, throw an error
       if (!previousPhase.done) {
         throw new Error("Cannot mark task as completed until all tasks in previous phase are completed");

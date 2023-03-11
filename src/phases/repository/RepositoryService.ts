@@ -1,16 +1,13 @@
-import { randomBytes } from "crypto";
-import { IPhaseDB, IPhase, CompleteTask, IGetTask } from "../types/types";
+import { IPhaseDB, CompleteTask, IGetTask } from "../types/types";
 
 class RepositoryService {
   // In-memory Database
   private phaseDB: { [phaseId: string]: IPhaseDB } = {};
 
-  public createPhase(phaseBodyField: IPhase): IPhaseDB {
-    const { name, description } = phaseBodyField;
+  public createPhase(phaseBodyField: IPhaseDB): IPhaseDB {
+    const { phaseId } = phaseBodyField;
 
-    const phaseId = randomBytes(4).toString("hex");
-    const newPhase = { phaseId, name, description, tasks: [], done: false };
-    return this.phaseDB[phaseId] = newPhase;
+    return this.phaseDB[phaseId] = phaseBodyField;
   }
 
   public getAllPhases() {
@@ -36,6 +33,7 @@ class RepositoryService {
   public getPreviousPhaseId(phaseId: string): string | null {
     const phaseIds = Object.keys(this.phaseDB);
     const index = phaseIds.indexOf(phaseId);
+
     if (index === -1) {
       return null;
     }
