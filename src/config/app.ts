@@ -6,9 +6,9 @@ import { CommonRoutesConfig } from "../common/commonRouteConfig";
 import { PhasesRoutes } from "../phases/phaseRoutes";
 import { requestLogger } from "../config/requestLogger";
 
-const app: express.Application = express();
-const routes: Array<CommonRoutesConfig> = [];
-const port = 8080;
+const app = express();
+const routes: CommonRoutesConfig[] = [];
+const port = 9090;
 
 // Middleware that enables Cross-Origin Resource Sharing (CORS) for the server.
 // This allows the server to handle requests from different domains or origins.

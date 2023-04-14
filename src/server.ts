@@ -6,7 +6,7 @@ import { onError } from "./config/requestLogger";
 function createServer(): http.Server {
   app.set("port", port);
 
-  const server: http.Server = http.createServer(app);
+  const server = http.createServer(app);
   server.listen(port);
   server.on('error', onError);
   server.on('listening', () => {

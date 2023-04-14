@@ -1,15 +1,11 @@
 import { Application } from "express";
-import {
-  CommonRoutesConfig,
-  configureRoutes,
-} from "../common/commonRouteConfig";
+import { CommonRoutesConfig } from "../common/commonRouteConfig";
 import phaseMiddleware from "./middleware/phaseMiddleware";
 import PhaseController from "./controller/PhaseController";
 
-export class PhasesRoutes extends CommonRoutesConfig implements configureRoutes {
+export class PhasesRoutes extends CommonRoutesConfig {
   constructor(app: Application) {
     super(app, "PhasesRoutes");
-    this.configureRoutes();
   }
 
   configureRoutes() {
@@ -60,5 +56,7 @@ export class PhasesRoutes extends CommonRoutesConfig implements configureRoutes 
     this.app.put("/api/phases/:phaseId/tasks/:taskId/reopen", [
       PhaseController.reopenTask
     ])
+
+    return this.app;
   }
 }
